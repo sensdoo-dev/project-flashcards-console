@@ -1,34 +1,27 @@
-class controller {
-    questionArr = []
-    
-    constructor(model, view){
-        this.model = model;
-        this.view = view;
-    }
+class Controller {
+  questionsArr = [];
 
-    start(){
-        const pathToFile = this.view.display()
-        this.getData(pathToFile)
-    }
+  constructor(model, view) {
+    this.model = model;
+    this.view = view;
+  }
 
-    getData(pathToFile){
-        questionsArr = this.model.readFile(pathToFile)
-        
-        let answer = this.view.display({question: questionsArr[0].question})
-        for (let i = 1; i <= 5; i++) {
-            answer = this.view.display({question:questionsArr[i].question, answer: answer === questionsArr[i - 1].answer})
-        }
-    }
+  async start() {
+    const pathToFile = await this.view.display();
+    this.getData(pathToFile);
+  }
 
-    
+  async getData(pathToFile) {
+    this.questionsArr = await this.model.readFile(pathToFile);
+
+    let answer = await this.view.display({ question: this.questionsArr[0].question });
+    for (let i = 1; i <= 5; i++) {
+      answer = await this.view.display({
+        question: this.questionsArr[i].question,
+        answer: answer === this.questionsArr[i - 1].answer,
+      });
+    }
+  }
 }
 
-
-
-
-
-
-module.exports = {
-    start,
-    getData,
-} 
+module.exports = Controller;

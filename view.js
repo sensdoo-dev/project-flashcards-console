@@ -7,11 +7,13 @@ class View {
       return category;
     }
     if (!data.answer) {
-      const answer = await this.#nextView(data.question);
-      return answer;
+      const userAnswer = await this.#nextView(data.question);
+      return userAnswer;
     }
-
-    // if (!category) return this.display();
+    const isCorrect = data.answer ? '\nMolodec\n' : '\n\nBulka s maslom!\n';
+    console.log(isCorrect);
+    const userAnswer = this.#nextView(data.question);
+    return userAnswer;
   }
 
   #start() {
@@ -29,9 +31,5 @@ class View {
     return input({ message: question || 'Ястреб птица?' });
   }
 }
-
-// new View().display();
-new View().display({ question: '!!!!' });
-// new View().display({ question: '!!!!' });
 
 module.exports = View;

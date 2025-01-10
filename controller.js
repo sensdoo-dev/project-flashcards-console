@@ -15,11 +15,17 @@ class Controller {
     this.questionsArr = await this.model.readFile(pathToFile);
 
     let answer = await this.view.display({ question: this.questionsArr[0].question });
-    for (let i = 1; i < this.questionsArr.length; i++) {
-      answer = await this.view.display({
-        question: this.questionsArr[i].question,
-        answer: answer === this.questionsArr[i - 1].answer,
-      });
+    for (let i = 1; i <= this.questionsArr.length; i++) {
+      if (i === this.questionsArr.length) {
+        answer = await this.view.display({
+          answer: answer === this.questionsArr[i - 1].answer,
+        });
+      } else {
+        answer = await this.view.display({
+          question: this.questionsArr[i].question,
+          answer: answer === this.questionsArr[i - 1].answer,
+        });
+      }
     }
   }
 }

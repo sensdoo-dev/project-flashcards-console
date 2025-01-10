@@ -1,4 +1,4 @@
-class controller {
+class Controller {
     questionArr = []
     
     constructor(model, view){
@@ -6,17 +6,17 @@ class controller {
         this.view = view;
     }
 
-    start(){
-        const pathToFile = this.view.display()
+    async start(){
+        const pathToFile = await this.view.display()
         this.getData(pathToFile)
     }
 
-    getData(pathToFile){
-        questionsArr = this.model.readFile(pathToFile)
+    async getData(pathToFile){
+        this.questionArr = await this.model.readFile(pathToFile)
         
-        let answer = this.view.display({question: questionsArr[0].question})
+        let answer = await this.view.display({question: this.questionArr[0].question})
         for (let i = 1; i <= 5; i++) {
-            answer = this.view.display({question:questionsArr[i].question, answer: answer === questionsArr[i - 1].answer})
+            answer = await this.view.display({question:this.questionArr[i].question, answer: answer === this.questionArr[i - 1].answer})
         }
     }
 
@@ -28,7 +28,4 @@ class controller {
 
 
 
-module.exports = {
-    start,
-    getData,
-} 
+module.exports = Controller

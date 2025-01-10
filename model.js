@@ -3,6 +3,7 @@ const fs = require('fs').promises;
 class Model {
   async readFile(path) {
     const text = await fs.readFile(`./topics/${path}`, 'utf-8');
+
     const arr = text.split('\n').filter((el) => el !== '');
     const [even, odd] = arr.reduce(
       (acc, val, index) => {

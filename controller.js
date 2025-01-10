@@ -20,6 +20,7 @@ class Controller {
         answer = await this.view.display({
           answer: answer === this.questionsArr[i - 1].answer,
         });
+        this.view.newGame(this);
       } else {
         answer = await this.view.display({
           question: this.questionsArr[i].question,

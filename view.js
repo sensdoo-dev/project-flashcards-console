@@ -1,4 +1,4 @@
-const { input, select } = require('@inquirer/prompts');
+const { input, confirm, select } = require('@inquirer/prompts');
 
 class View {
   isFirst = true;
@@ -21,6 +21,13 @@ class View {
       const userAnswer = this.#nextView(data.question);
       return userAnswer;
     }
+  }
+
+  async newGame(controller) {
+    const isCorrect = await confirm({
+      message: 'Хотите начать заного?\n',
+    });
+    if (isCorrect) controller.start();
   }
 
   #start() {
